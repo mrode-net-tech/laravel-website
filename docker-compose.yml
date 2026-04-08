@@ -1,0 +1,17 @@
+services:
+  app:
+    image: serversideup/php:8.5-frankenphp
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./:/var/www/html
+    environment:
+      SSL_MODE: "on"
+      CADDY_HTTP_PORT: "8080"
+      CADDY_SERVER_ROOT: "/var/www/html/public"
+      DB_CONNECTION: mysql
+      DB_HOST: <managed-db-host>
+      DB_PORT: 25060   # przykładowy port DigitalOcean Managed MySQL
+      DB_DATABASE: <db-name>
+      DB_USERNAME: <db-user>
+      DB_PASSWORD: <db-pass>
