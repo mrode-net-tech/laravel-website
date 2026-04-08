@@ -1,0 +1,31 @@
+version: '3.9'
+
+services:
+  app:
+    image: serversideup/php:8.5-frankenphp
+    container_name: laravel_app
+    ports:
+      - "8080:8080"
+    volumes:
+      - ../:/var/www/html
+    environment:
+      SSL_MODE: "off"
+      CADDY_HTTP_PORT: "8080"
+      CADDY_SERVER_ROOT: "/var/www/html/public"
+    user: "${UID}:${GID}"
+
+  db:
+    image: mysql:8.0
+    container_name: laravel_db
+    environment:
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_DATABASE: laravel
+      MYSQL_USER: laravel
+      MYSQL_PASSWORD: secret
+    ports:
+      - "3306:3306"
+    volumes:
+      - dbdata:/var/lib/mysql
+
+volumes:
+  dbdata:
